@@ -10,7 +10,7 @@ class RegistrationForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     confirm_password = PasswordField('Confirm Password', 
                     validators=[DataRequired(), EqualTo('password')])
-    Submit = SubmitField('sign up')
+    submit = SubmitField('sign up')
 
 
 class LoginForm(FlaskForm):
@@ -19,6 +19,6 @@ class LoginForm(FlaskForm):
     password = PasswordField('password', validators=[DataRequired()])
    # Secure cookie for keeping the user stay loged in for while 
     remember = BooleanField('Remember Me')
-    Submit = SubmitField('sign up')
+    submit = SubmitField('sign up')
 
  
