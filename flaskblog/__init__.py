@@ -1,4 +1,3 @@
-import bcrypt
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
@@ -22,3 +21,4 @@ login_manager.login_message_category = 'info'
 # setting for login requered 
 
 from flaskblog import routes 
+from flaskblog.models import User, Post
