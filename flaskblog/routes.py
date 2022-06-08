@@ -1,5 +1,5 @@
 from flask import render_template, url_for, flash, redirect, request 
-from flaskblog.forms import RegistrationForm, LoginForm
+from flaskblog.forms import RegistrationForm, LoginForm, UpdateAccountForm
 from flaskblog.models import User, Post 
 from flaskblog import app, db, bcrypt
 from flask_login import login_user, current_user,logout_user, login_required
@@ -39,7 +39,7 @@ def register():
         return redirect(url_for('home'))
     form = RegistrationForm()
     if form.validate_on_submit():
-        # Hash password befor checking for validation 
+        # Hash password befor checking for validat ion 
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         # Create a new Instance of user
         user = User(username=form.username.data, email=form.email.data, password=hashed_password)
@@ -49,6 +49,8 @@ def register():
         flash(f'Your acount has been created you are now able to log in', 'success')
         return redirect(url_for('login'))     
     return  render_template('register.html', title='Register', form=form)
+
+
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
@@ -79,4 +81,7 @@ def logout():
 @app.route("/account")
 @login_required 
 def account():
-    return  render_template('account.html', title='Account')
+    form = UpdateAccountForm()
+    image_file = url_for('static', filename='profile_pic/' + current_user.image_file)
+    return  render_template('account.html', title='Account', 
+                            image_file=image_file, form=form)  
